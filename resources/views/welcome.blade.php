@@ -112,20 +112,14 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 							<li><a href="{{URL::to('/trang-chu')}}" class="active">Trang Chủ</a></li>
-								<li class="dropdown"><a href="#">Cửa Hàng<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="#">Sản phẩm<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Sản Phẩm</a></li>
-										<li><a href="cart.html">Giỏ Hàng</a></li> 
-										<li><a href="login.html">Đăng Nhập</a></li> 
                                     </ul>
                                 </li> 
-								<li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="blog.html">Blog List</a></li>
-										<li><a href="blog-single.html">Blog Single</a></li>
-                                    </ul>
+								<li class="dropdown"><a href="#">Tin tức</a>
                                 </li> 
-								<li><a href="404.html">404</a></li>
+								<li><a href="404.html">Giỏ hàng</a></li>
 								<li><a href="contact-us.html">Liên Hệ</a></li>
 							</ul>
 						</div>
@@ -206,66 +200,28 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">
-						<h2>Phân Loại</h2>
+						<h2>Danh mục sản phẩm</h2>
 						<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-							
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Laptop</a></h4>
+							@foreach($category as $key => $cate)
+								<div class="panel panel-default">
+									<div class="panel-heading">
+									<h4 class="panel-title"><a href="{{ URL::to('/show-category-product-athome/'.$cate->category_id)}}">{{$cate->category_name}}</a></h4>
+									</div>
 								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Điện Thoại</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Máy PC</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Tablet</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Màn Hình</a></h4>
-								</div>
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title"><a href="#">Phụ Kiện</a></h4>
-								</div>
-							</div>
+							@endforeach
 						</div><!--/category-products-->
 					
 						<div class="categorys_products"><!--categorys_products-->
-							<h2>categorys</h2>
+							<h2>Thương hiệu sản phẩm</h2>
 							<div class="categorys-name">
 								<ul class="nav nav-pills nav-stacked">
-									<li><a href="#"> <span class="pull-right">(50)</span>Asus</a></li>
-									<li><a href="#"> <span class="pull-right">(56)</span>Dell</a></li>
-									<li><a href="#"> <span class="pull-right">(27)</span>Lenovo</a></li>
-									<li><a href="#"> <span class="pull-right">(32)</span>HP</a></li>
-									<li><a href="#"> <span class="pull-right">(5)</span>Sony</a></li>
+									@foreach($brands as $key => $brand)
+									<li><a href="{{ URL::to('/show-brand-product-athome/'.$brand->brand_id)}}">{{ $brand->brand_name}}<span class="pull-right"></span></a></li>
+									@endforeach
 								</ul>
 							</div>
 						</div><!--/categorys_products-->
 						
-						<div class="price-range"><!--price-range-->
-							<h2>Giá</h2>
-							<div class="well text-center">
-								 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-								 <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-							</div>
-						</div><!--/price-range-->
-						
-						<div class="shipping text-center"><!--shipping-->
-							<img src="images/home/shipping.jpg" alt="" />
-						</div><!--/shipping-->
-					
 					</div>
 				</div>
 				
@@ -279,85 +235,7 @@
 	</section>
 	
 	<footer id="footer"><!--Footer-->
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2">
-						<div class="companyinfo">
-							<h2><span>First</span>-shopper</h2>
-							<p>Firstshop đồng hành cùng ước mơ của bạn</p>
-						</div>
-					</div>
-					<div class="col-sm-7">
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe1.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe2.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe3.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-						
-						<div class="col-sm-3">
-							<div class="video-gallery text-center">
-								<a href="#">
-									<div class="iframe-img">
-										<img src="images/home/iframe4.png" alt="" />
-									</div>
-									<div class="overlay-icon">
-										<i class="fa fa-play-circle-o"></i>
-									</div>
-								</a>
-								<p>Circle of Hands</p>
-								<h2>24 DEC 2014</h2>
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-3">
-						<div class="address">
-							<img src="images/home/map.png" alt="" />
-							<p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		
 		<div class="footer-widget">
 			<div class="container">

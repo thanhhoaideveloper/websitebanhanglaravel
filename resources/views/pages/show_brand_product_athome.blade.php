@@ -1,8 +1,10 @@
 @extends('welcome')
 @section('content')
     <div class="features_items"><!--features_items-->
-        <h2 class="title text-center">Sản Phẩm</h2>
-        @foreach($products as $key => $product)
+        @foreach($brand_name as $key => $name)
+            <h2 class="title text-center">Sản Phẩm{{' '.$name->brand_name}}</h2>
+        @endforeach
+        @foreach($show_brand_product_athome as $key => $product)
         <div class="col-sm-4">
             <div class="product-image-wrapper">
                 <div class="single-products">

@@ -16,6 +16,13 @@ Route::get('/', 'HomeController@index');
 Route::get('/trang-chu','HomeController@index');
 
 
+//show category at home
+
+Route::get('/show-category-product-athome/{category_id}','categoryProductController@show_category_product_athome');
+
+//show brand at home
+
+Route::get('/show-brand-product-athome/{brand_id}','categoryProductController@show_brand_product_athome');
 
 //Back End
 
@@ -50,6 +57,6 @@ Route::get('/add-product','ProductController@add_product');
 Route::get('/show-product','ProductController@show_product');
 Route::post('/save-product','ProductController@save_product');
 Route::get('/update-product/{product_id}','ProductController@update_product');
-Route::get('/update-brand-status/{product_id}','ProductController@update_status');
+Route::get('/update-product-status/{product_id}','ProductController@update_product_status');
 Route::post('/update-value-product/{product_id}','ProductController@update_value_product');
 Route::get('/delete-product/{product_id}','ProductController@delete_product');

@@ -41,7 +41,7 @@
                         <select name="category_id" class=form-control input-sm m-bot15>
                             @foreach($category as $key => $cate)
                                 <option value="{{$cate->category_id}}">{{$cate->category_name}}</option>    
-                            @endforeach                   
+                            @endforeach            
                         </select>
                     </div>
                     <div class="form-group ">

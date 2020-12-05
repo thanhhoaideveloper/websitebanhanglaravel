@@ -68,4 +68,36 @@ class categoryProductController extends Controller
         return Redirect::to('/show-category-product');
     }
 
+
+    public function show_category_product_athome($cate_id){
+        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $brand = DB::table('tbl_brand_product')->orderby('brand_id','desc')->get();
+
+        $category_name = DB::table('tbl_category_product')->where('category_id',$cate_id)->limit(1)->get();
+        $show_category_product_athome= DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->where('tbl_product.category_id',$cate_id)
+        ->get();
+
+        return view('pages.show_category_product_athome')->with('cate_name',$category_name)->with('category',$category)->with('brands',$brand)
+        ->with('show_category_product_athome',$show_category_product_athome);
+        ;
+    }
+    
+    public function show_brand_product_athome($brand_id){
+        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $brand = DB::table('tbl_brand_product')->orderby('brand_id','desc')->get();
+
+        $brand_name = DB::table('tbl_brand_product')->where('brand_id',$brand_id)->limit(1)->get();
+        $show_brand_product_athome= DB::table('tbl_product')
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_product.brand_id',$brand_id)
+        ->get();
+
+        return view('pages.show_brand_product_athome')->with('brand_name',$brand_name)->with('category',$category)->with('brands',$brand)
+        ->with('show_brand_product_athome',$show_brand_product_athome);
+        ;
+    }
+
+
 }

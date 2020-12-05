@@ -20,7 +20,11 @@ class ProductController extends Controller
     }
 
     public function show_product(){
-        $show_product = DB::table('tbl_product')->get();
+        $show_product = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->orderby('tbl_product.product_id','desc')
+        ->get();
         $manager_product = view('admin.show_product')->with('show_product',$show_product);
         return view('admin_layout')->with('admin.show_product',$manager_product);
 
@@ -56,42 +60,59 @@ class ProductController extends Controller
             DB::table('tbl_product')->insert($data);
         }
        
-    //return Redirect::to('/show-product');
+    return Redirect::to('/show-product');
     }
 
-    public function update_brand_product($brand_id){
-        $update_brand_product = DB::table('tbl_brand_product')->where('brand_id',$brand_id)->get();
-        $manager_product = view('admin.update_brand_product')->with('update_brand_product',$update_brand_product);
-        return view('admin_layout')->with('admin.update_brand_product',$manager_product);
+    public function update_product($product_id){
+        $category = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $brand = DB::table('tbl_brand_product')->orderby('brand_id','desc')->get();
+
+        $update_product = DB::table('tbl_product')->where('product_id',$product_id)->get();
+
+        $manager_product = view('admin.update_product')->with('update_product',$update_product)
+        ->with('category',$category)->with('brand',$brand);
+        
+        return view('admin_layout')->with('admin.update_product',$manager_product);
     }
 
-    public function update_brand_value_product(Request $request,$brand_id){
+    public function update_value_product(Request $request,$product_id){
        $data = array();
-       $data['brand_name'] = $request->brand_name;
-       $data['brand_desc'] = $request->brand_desc;
-       DB::table('tbl_brand_product')->where('brand_id',$brand_id)->update($data);
-       return Redirect::to('/show-brand-product');
+       $data['product_name'] = $request->product_name;
+       $data['product_desc'] = $request->product_desc;
+       $data['product_content'] = $request->product_content;
+       $data['category_id'] = $request->category_id;
+       $data['brand_id'] = $request->brand_id;
+       $data['product_price'] = $request->product_price ;
+       $get_image = $request->file('product_image');
+       if($get_image){
+           $fileName = $request->file('product_image')->getClientOriginalName();
+           $get_image->move(base_path('public/uploads/product'),$fileName);
+           $data['product_image'] =$fileName;
+           DB::table('tbl_product')->where('product_id',$product_id)->update($data);
+       }
+       DB::table('tbl_product')->where('product_id',$product_id)->update($data);
+       return Redirect::to('/show-product');
     }
 
 
-    public function update_brand_status($brand_id){
-        $brand_status = DB::table('tbl_brand_product')->select('brand_status')->where('brand_id',$brand_id)->get();
-        $status = collect($brand_status)->all()[0]->brand_status;
+    public function update_product_status($product_id){
+        $product_status = DB::table('tbl_product')->select('product_status')->where('product_id',$product_id)->get();
+        $status = collect($product_status)->all()[0]->product_status;
         $data = array();
         if($status == 0){
-            $data['brand_status'] = 1;
+            $data['product_status'] = 1;
         }
         else{
-            $data['brand_status'] = 0;
+            $data['product_status'] = 0;
         }
-        DB::table('tbl_brand_product')->where('brand_id',$brand_id)->update($data);
-            return Redirect::to('/show-brand-product');
+        DB::table('tbl_product')->where('product_id',$product_id)->update($data);
+            return Redirect::to('/show-product');
     }
 
 
-    public function delete_brand_product($brand_id){
-        DB::table('tbl_brand_product')->where('brand_id',$brand_id)->delete();
-        return Redirect::to('/show-brand-product');
+    public function delete_product($product_id){
+        DB::table('tbl_product')->where('product_id',$product_id)->delete();
+        return Redirect::to('/show-product');
     
     }
 }
