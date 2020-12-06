@@ -60,3 +60,16 @@ Route::get('/update-product/{product_id}','ProductController@update_product');
 Route::get('/update-product-status/{product_id}','ProductController@update_product_status');
 Route::post('/update-value-product/{product_id}','ProductController@update_value_product');
 Route::get('/delete-product/{product_id}','ProductController@delete_product');
+
+
+//end admin
+
+//product detail
+
+Route::get('/product-detail/{product_id}','ProductController@show_product_detail');
+
+
+//cart
+
+Route::post('/save-cart','CartController@save_cart');
+Route::get('/show-cart','CartController@show_cart');

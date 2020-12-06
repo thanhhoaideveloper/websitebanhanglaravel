@@ -115,4 +115,33 @@ class ProductController extends Controller
         return Redirect::to('/show-product');
     
     }
+
+
+    //end admin
+
+    public function show_product_detail($product_id){
+        $categoty = DB::table('tbl_category_product')->orderby('category_id','desc')->get();
+        $brand = DB::table('tbl_brand_product')->orderby('brand_id','desc')->get();
+
+        $show_product_detail = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_product.product_id',$product_id)
+        ->get();
+
+        foreach($show_product_detail as $key => $recommended){
+            $category_recommended = $recommended->category_id;
+        }
+
+        $recommended_product = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_category_product.category_id',$category_recommended)
+        ->whereNotIn('tbl_product.product_id',[$product_id])
+        ->get();
+        return  view('pages.product.show_product_detail')->with('category',$categoty)
+                ->with('brands',$brand)
+                ->with('recommended_product',$recommended_product)
+                ->with('show_product_detail',$show_product_detail);
+    }
 }
