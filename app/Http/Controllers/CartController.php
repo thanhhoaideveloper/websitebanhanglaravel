@@ -14,13 +14,42 @@ session_start();
 class CartController extends Controller
 {
     public function show_cart(){
-        return view('pages.cart.show_cart');
+        $sum = 0;
+        foreach($_SESSION as $key => $value){
+            $id = substr($key,5,10);
+            $products = DB::table('tbl_product')->where('product_id',$id)->get();
+            foreach($products as $key => $product){
+                $sum = $sum + ($value*$product->product_price);
+            }
+        }
+
+        return view('pages.cart.show_cart')->with('total',$sum);
     }
 
     public function save_cart(Request $request){
         $product_id = $request->productid_hidden;
         $quality = $request->quality;
-        Cart::add('293ad', 'Product 1', 1, 9.99, 550);
-        return view("pages.cart.show_cart");
+        @$_SESSION['cart_'.$product_id]+=$quality;
+        return Redirect::to('/show-cart');
+    }
+
+    public function plus_quality($product_id){
+        $quality = $_SESSION['cart_'.$product_id];
+        if($quality<9){
+            @$_SESSION['cart_'.$product_id]++;
+        }
+        return Redirect::to('/show-cart');
+    }
+    public function minus_quality($product_id){
+        $quality = $_SESSION['cart_'.$product_id];
+        if($quality>1){
+            @$_SESSION['cart_'.$product_id]--;
+        }
+        return Redirect::to('/show-cart');
+    }
+
+    public function delete_cart($product_id){
+        unset($_SESSION['cart_'.$product_id]);
+        return Redirect::to('/show-cart');
     }
 }

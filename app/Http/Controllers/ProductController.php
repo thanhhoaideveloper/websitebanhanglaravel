@@ -25,6 +25,8 @@ class ProductController extends Controller
         ->join('tbl_brand_product','tbl_brand_product.brand_id','=','tbl_product.brand_id')
         ->orderby('tbl_product.product_id','desc')
         ->get();
+
+
         $manager_product = view('admin.show_product')->with('show_product',$show_product);
         return view('admin_layout')->with('admin.show_product',$manager_product);
 

@@ -1,10 +1,8 @@
 @extends('welcome')
 @section('content')
     <div class="features_items"><!--features_items-->
-        @foreach($brand_name as $key => $name)
-            <h2 class="title text-center">Sản Phẩm{{' '.$name->brand_name}}</h2>
-        @endforeach
-        @foreach($show_brand_product_athome as $key => $product)
+        <h2 class="title text-center">Sản Phẩm tìm kiếm</h2>
+        @foreach($seach_product as $key => $product)
         <a href="{{URL::to('/product-detail/'.$product->product_id)}}">
             <div class="col-sm-4">
                 <div class="product-image-wrapper">

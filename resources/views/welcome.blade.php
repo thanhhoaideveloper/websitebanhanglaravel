@@ -87,9 +87,26 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
-								<li><a href="{{URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giò Hàng</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Đăng Nhập</a></li>
+
+								<?php 
+									$customer_id = Session::get('customer_id');
+									if($customer_id != null){
+										$url = '/checkout';
+										$action = "Đăng xuất";
+										$url1 = '/logout-checkout';
+									}
+									else{
+										$url = '/login-checkout';
+										$action = "Đăng nhập";
+										$url1 = '/login-checkout';
+									}
+									
+								?>
+								<li><a href="{{ URL::to($url)}}"><i class="fa fa-user"></i> Tài khoản</a></li>
+								<li><a href="login.html"><i class="fa fa-lock"></i> Yêu thích</a></li>
+								<li><a href="{{ URL::to($url)}}"><i class="fa fa-lock"></i> Thanh toán</a></li>
+								<li><a href="{{ URL::to('/show-cart')}}"><i class="fa fa-shopping-cart"></i> Giò Hàng</a></li>
+								<li><a href="{{ URL::to($url1)}}"><i class="fa fa-lock"></i>{{ $action }}</a></li>
 							</ul>
 						</div>
 					</div>
@@ -125,9 +142,12 @@
 						</div>
 					</div>
 					<div class="col-sm-3">
-						<div class="search_box pull-right">
-							<input type="text" placeholder="Tìm Kiếm"/>
-						</div>
+						<form action="{{ URL::to('/seach-product')}}" method="POST">
+							<div class="search_box pull-right">
+								{{ csrf_field() }}
+								<input type="text" name="seach_product" placeholder="Tìm Kiếm"/>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
