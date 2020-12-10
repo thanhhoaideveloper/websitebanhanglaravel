@@ -31,6 +31,9 @@ Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::post('/admin-dashboard','AdminController@dashboard');
 Route::get('/logout','AdminController@logout');
+Route::get('/show-order','AdminController@show_order');
+Route::get('/show-order-detail/{order_id}','AdminController@show_order_detail');
+Route::get('/update-order-status/{order_id}','AdminController@update_order_status');
 
 //category product
 
@@ -61,6 +64,7 @@ Route::get('/update-product/{product_id}','ProductController@update_product');
 Route::get('/update-product-status/{product_id}','ProductController@update_product_status');
 Route::post('/update-value-product/{product_id}','ProductController@update_value_product');
 Route::get('/delete-product/{product_id}','ProductController@delete_product');
+
 
 
 //end admin
