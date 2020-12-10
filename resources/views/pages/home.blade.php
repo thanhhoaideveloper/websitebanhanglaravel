@@ -3,15 +3,24 @@
     <div class="features_items"><!--features_items-->
         <h2 class="title text-center">Sản Phẩm</h2>
         @foreach($products as $key => $product)
-        <a href="{{URL::to('/product-detail/'.$product->product_id)}}">
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
                     <div class="single-products">
                             <div class="productinfo text-center">
-                                <img style="height: 200px;width:200px" src="{{ asset('uploads/product/'.$product->product_image)}}" alt="" />
-                                <h2>{{ number_format($product->product_price).' VNĐ'}}</h2>
-                                <p>{{ $product->product_name}}</p>
-                                <a href="{{URL::to('/product-detail/'.$product->product_id)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết sản phẩm</a>
+                                <a href="{{URL::to('/product-detail/'.$product->product_id)}}">
+                                    <img style="height: 200px;width:200px" src="{{ asset('uploads/product/'.$product->product_image)}}" alt="" />
+                                    <h2>{{ number_format($product->product_price).' VNĐ'}}</h2>
+                                    <p>{{ $product->product_name}}</p>
+                                </a>
+                                <form action="{{URL::to('/add-cart')}}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="quality" min='1' max="10" value="1" />
+                                    <input type="hidden" name="productid_hidden" value="{{$product->product_id}}" />
+                                    <button type="submit" class="btn btn-fefault cart">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                </form>
                             </div>
                     </div>
                     <div class="choose">
@@ -23,7 +32,6 @@
                 
                 </div>
             </div>
-         </a>
         @endforeach
     </div><!--features_items-->
 

@@ -73,16 +73,12 @@ Route::get('/product-detail/{product_id}','ProductController@show_product_detail
 //cart
 
 Route::post('/save-cart','CartController@save_cart');
+Route::post('/add-cart','CartController@add_cart');
 Route::get('/show-cart','CartController@show_cart');
 Route::get('/plus-quality/{product_id}','CartController@plus_quality');
 Route::get('/minus-quality/{product_id}','CartController@minus_quality');
 Route::get('/delete-cart/{product_id}','CartController@delete_cart');
 
-//customer
+//payment
 
-Route::get('/login-checkout','CustomerController@login_checkout');
-Route::post('/login-customer','CustomerController@login_customer');
-Route::get('/logout-checkout','CustomerController@logout_checkout');
-Route::post('/add-customer','CustomerController@add_customer');
-Route::get('/checkout','CustomerController@checkout');
-Route::post('/save-checkout-customer','CustomerController@save_checkout_customer');
+Route::post('/payment','PayController@payment');

@@ -58,7 +58,7 @@
     <div class="col-sm-12">
         <ul class="nav nav-tabs">
             <li  class="active"><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>
-            <li><a href="#companyprofile" data-toggle="tab">Thông tin công ty</a></li>
+            <li><a href="#companyprofile" data-toggle="tab">Đặt điển sản phẩm</a></li>
             <li><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
         </ul>
     </div>
@@ -71,12 +71,7 @@
         
         <div class="tab-pane fade" id="companyprofile" >
             <p> 
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                 sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                 ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in 
-                 voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
+                {{ $product->product_content}}
         </div>
         
         <div class="tab-pane fade " id="reviews" >
@@ -111,10 +106,10 @@
     
     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="item active">	
             @foreach($recommended_product as $key => $product)
+            <div class="item active">	
             <a href="{{URL::to('/product-detail/'.$product->product_id)}}">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
                                 <div class="productinfo text-center">
@@ -134,29 +129,9 @@
                     </div>
                 </div>
             </a>
-             @endforeach   
-            </div>
-            <div class="item">	
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="images/home/recommend3.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-         <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-          </a>
-          <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-          </a>			
+             
+        </div>	
+        @endforeach   
     </div>
 </div>
 

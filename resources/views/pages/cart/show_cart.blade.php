@@ -1,3 +1,5 @@
+
+
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -38,14 +40,34 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <?php   
+                            if(Session::get('message')){
+                               echo '<tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-success" role="alert">Thanh toán thành công</div>
+                                    </td>
+                                    </tr>';
+
+                                Session::forget('message');
+
+                            }else if($_SESSION==null){
+                                echo '<tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-warning" role="alert">Giỏ hàng trống</div>
+                                    </td>
+                                    </tr>';
+                            }
+
+
                             foreach($_SESSION as $key => $value){
                             $id = substr($key,5,10); 
                             $products = DB::table('tbl_product')->where('product_id',$id)->get();
                             foreach($products as $key => $product){
                     ?>
                     <tr>
-                        <td>{{ $product->product_name}}</td>
+                        <td style="width: 300px">{{ $product->product_name}}</td>
+
                         <td class="cart_product">
                         <a href=""><img style="width:100px;height:100px"src="{{asset('/uploads/product/'.$product->product_image)}}" alt=""></a>
                         </td>
@@ -76,89 +98,37 @@
 
 <section id="do_action">
     <div class="container">
-        <div class="heading">
-            <h3></h3>
-            <p>Chọn địa chỉ của bạn để giao hàng?</p>
-        </div>
         <div class="row">
             <div class="col-sm-6">
-                <div class="chose_area">
-                    <ul class="user_option">
-                        <li>
-                            <input type="checkbox">
-                            <label>Use Coupon Code</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Use Gift Voucher</label>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <label>Estimate Shipping & Taxes</label>
-                        </li>
-                    </ul>
-                    <ul class="user_info">
-                        <li class="single_field">
-                            <label>Country:</label>
-                            <select>
-                                <option>United States</option>
-                                <option>Bangladesh</option>
-                                <option>UK</option>
-                                <option>India</option>
-                                <option>Pakistan</option>
-                                <option>Ucrane</option>
-                                <option>Canada</option>
-                                <option>Dubai</option>
-                            </select>
-                            
-                        </li>
-                        <li class="single_field">
-                            <label>Region / State:</label>
-                            <select>
-                                <option>Select</option>
-                                <option>Dhaka</option>
-                                <option>London</option>
-                                <option>Dillih</option>
-                                <option>Lahore</option>
-                                <option>Alaska</option>
-                                <option>Canada</option>
-                                <option>Dubai</option>
-                            </select>
-                        
-                        </li>
-                        <li class="single_field zip-field">
-                            <label>Zip Code:</label>
-                            <input type="text">
-                        </li>
-                    </ul>
-                    <a class="btn btn-default update" href="">Get Quotes</a>
-                    <a class="btn btn-default check_out" href="">Continue</a>
-                </div>
+                <div class="login-form my-boder"><!--login form-->
+                    <h2 style="margin-left:10px">Điền thông tin mua hàng</h2>
+                    <?php
+                        $customer_name = Session::get('customer_name');
+                        $customer_email = Session::get('customer_email');
+                        $customer_address = Session::get('customer_address');
+                        $customer_phone = Session::get('customer_phone');
+
+
+                    ?>
+                    <form action="{{ URL::to('/payment')}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="text" name="name" value="{{ $customer_name}}" placeholder="Họ và tên" />
+                        <input type="email" name="email" value="{{ $customer_email}}" placeholder="Địa chỉ email" />
+                        <input type="text" name="address" value="{{ $customer_address}}" placeholder="Địa chỉ" />
+                        <input type="text" name="phone" value="{{ $customer_phone}}" placeholder="Số điện thoại" />
+                        <button type="submit" class="btn btn-default">Thanh toán</button>
+                    </form>
+                </div><!--/login form-->
             </div>
+            
             <div class="col-sm-6">
                 <div class="total_area">
-                    <?php 
-                        $customer_id = Session::get('customer_id');
-                        if($customer_id != null){
-                            $url = '/checkout';
-                            $action = "Đăng xuất";
-                            $url1 = '/logout-checkout';
-                        }
-                        else{
-                            $url = '/login-checkout';
-                            $action = "Đăng nhập";
-                            $url1 = '/login-checkout';
-                        }
-                        
-                    ?>
-
                     <ul>
                         <li>Tổng tiền: <span>{{ number_format($total).' VNĐ'  }}</span></li>
                         <li>Thuế: <span>0 VNĐ</span></li>
                         <li>Phí vận chuyển: <span>Free</span></li>
                         <li>Thành tiền: <span>{{ number_format($total).' VNĐ' }}</span></li>
                     </ul>
-                        <a class="btn btn-default check_out" href="{{$url}}">Thanh toán</a>
                 </div>
             </div>
         </div>

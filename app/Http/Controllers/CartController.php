@@ -33,6 +33,14 @@ class CartController extends Controller
         return Redirect::to('/show-cart');
     }
 
+
+    public function add_cart(Request $request){
+        $product_id = $request->productid_hidden;
+        $quality = $request->quality;
+        @$_SESSION['cart_'.$product_id]+=$quality;
+        return Redirect::to('/');
+    }
+
     public function plus_quality($product_id){
         $quality = $_SESSION['cart_'.$product_id];
         if($quality<9){
