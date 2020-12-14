@@ -79,7 +79,7 @@ class categoryProductController extends Controller
         ->where('tbl_product.category_id',$cate_id)
         ->get();
 
-        return view('pages.show_category_product_athome')->with('cate_name',$category_name)->with('category',$category)->with('brands',$brand)
+        return view('pages.show_category_product_athome')->with('category_name',$category_name)->with('category',$category)->with('brands',$brand)
         ->with('show_category_product_athome',$show_category_product_athome);
         ;
     }

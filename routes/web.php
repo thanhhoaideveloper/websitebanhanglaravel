@@ -86,3 +86,7 @@ Route::get('/delete-cart/{product_id}','CartController@delete_cart');
 //payment
 
 Route::post('/payment','PayController@payment');
+
+//contact
+
+Route::get('/contact','ContactController@index');

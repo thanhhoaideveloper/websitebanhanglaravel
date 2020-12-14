@@ -100,7 +100,7 @@
 								<li class="dropdown"><a href="#">Tin tức</a>
                                 </li> 
 								<li><a href="{{URL::to('/show-cart')}}">Giỏ hàng<span>({{$count}})</span></a></li>
-								<li><a href="contact-us.html">Liên Hệ</a></li>
+								<li><a href="{{ URL::to('/contact')}}">Liên Hệ</a></li>
 							</ul>
 						</div>
 					</div>
