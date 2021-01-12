@@ -23,8 +23,8 @@
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
-                <li><a href="{{URL::to('/trang-chu')}}" >Trang chủ</a></li>
-                <li class="active">Giỏ hàng của bạn</li>
+                <li class="active"><a href="{{URL::to('/trang-chu')}}" >Trang chủ</a></li>
+                <li>Giỏ hàng của bạn</li>
             </ol>
         </div>
         <div class="table-responsive cart_info">
